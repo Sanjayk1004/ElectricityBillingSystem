@@ -1,0 +1,44 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.User;
+import com.example.demo.services.UserService;
+
+@RequestMapping("/user")
+@RestController
+public class UserController {
+	@Autowired
+	UserService us;
+	 @PostMapping("/save")
+	 public User post(@RequestBody User amodel7)
+	 {
+	  return us.post3(amodel7);
+	 }
+	 @GetMapping("/get")
+	 public List<User> get()
+	 {
+	  return us.get3();
+	 }
+	 @PutMapping("/update")
+	 public User putD3(@RequestBody User amodel8)
+	 {
+	  return us.put3(amodel8);
+	 }
+	 @DeleteMapping("/del/{username}")
+	 public String deleteD3(@PathVariable("username") String Username)
+	 {
+	  us.delete3(Username);
+	  return "Deleted";
+	 }
+	}

@@ -1,0 +1,23 @@
+package com.example.demo.service;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Electricity;
+import com.example.demo.repository.ElectricityRepo;
+
+@Service
+public abstract class ElectricityServiceImpl implements ElectricityServiceInter
+{
+    private ElectricityRepo electricityRepository;
+
+    public ElectricityServiceImpl(ElectricityRepo electricityRepository) {
+        this.electricityRepository = electricityRepository;
+    }
+
+	@Override
+	public Electricity createElectricity(Electricity electricity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+}

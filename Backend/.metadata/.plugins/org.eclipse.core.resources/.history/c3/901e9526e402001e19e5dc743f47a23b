@@ -1,0 +1,75 @@
+package com.example.demo.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.hibernate.annotations.DialectOverride.OverridesAnnotation;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.ElectricityEntity;
+import com.example.demo.model.Electricity;
+import com.example.demo.repository.ElectricityRepo;
+
+@Service
+public class ElectricityService implements ElectricityServiceInter
+{
+    private ElectricityRepo electricityRepository;
+
+    public ElectricityService(ElectricityRepo electricityRepository) {
+        this.electricityRepository = electricityRepository;
+    }
+
+    @Override
+    public Electricity createEmployee(Electricity electricity) {
+        ElectricityEntity electricityEntity = new ElectricityEntity();
+
+        BeanUtils.copyProperties(electricity, electricityEntity);
+        electricityRepository.save(electricityEntity);
+        return electricity;
+    }
+
+    @Override
+    public List<Electricity> getAllEmployees() {
+        List<ElectricityEntity> electricityEntities
+                = electricityRepository.findAll();
+
+        List<Electricity> electricity = electricityEntities
+                .stream()
+                .map(emp -> new Electricity(
+                        emp.getId(),
+                        emp.getFirstName(),
+                        emp.getLastName(),
+                        emp.getEmailId()))
+                .collect(Collectors.toList());
+        return electricity;
+    }
+
+    @Override
+    public boolean deleteElectricity(Long id) {
+        ElectricityEntity electricity = electricityRepository.findById(id).get();
+        electricityRepository.delete(electricity);
+        return true;
+    }
+
+    @Override
+    public Electricity getElectricityById(Long id) {
+        ElectricityEntity electricityEntity
+                = electricityRepository.findById(id).get();
+        Electricity electricity = new Electricity();
+        BeanUtils.copyProperties(electricityEntity, electricity);
+        return electricity;
+    }
+
+    @Override
+    public Electricity updateEmployee(Long id, Electricity employee) {
+        ElectricityEntity employeeEntity
+                = electricityRepository.findById(id).get();
+        employeeEntity.setEmailId(employee.getEmailId());
+        employeeEntity.setFirstName(employee.getFirstName());
+        employeeEntity.setLastName(employee.getLastName());
+
+        electricityRepository.save(employeeEntity);
+        return employee;
+    }
+}

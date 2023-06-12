@@ -1,0 +1,36 @@
+package com.example.demo.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Admin;
+import com.example.demo.repository.AdminRepo;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class AdminService {
+    @Autowired
+    AdminRepo ar; 
+	 public Admin post1(Admin amodel)
+     {
+      return ar.save(amodel);
+     }
+     
+     public List<Admin> get1()
+     {
+      return ar.findAll();
+     }
+     
+     public Admin put1(Admin amodel1)
+     {
+      return ar.saveAndFlush(amodel1);
+     }
+     @Transactional
+     public void delete1(String password)
+     {
+      ar.deleteByPassword(password);
+     }
+}

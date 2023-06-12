@@ -1,0 +1,76 @@
+package com.example.demo.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Electricity;
+import com.example.demo.repository.ElectricityRepo;
+
+@Service
+public class ElectricityServiceImpl implements ElectricityService {
+	@Autowired
+	ElectricityRepo lr;
+	@Override
+	public Electricity create(Electricity e)
+	{
+		return lr.save(e);
+	}
+	@Override
+    public List<Electricity>getalldetails()
+    {
+    	return lr.findAll();
+    }
+	@Override
+    public Optional<Electricity> getDetails(int serviceid)
+	{
+		return lr.findById(serviceid);
+	}
+	@Override
+    public String updateDetails(Electricity i,int serviceid)
+	{
+    	Electricity e = lr.findById(serviceid).orElse(null);
+		  if(e != null){
+			  e.setUsername(i.getUsername());
+			  e.setDuedate(i.getDuedate());
+			  e.setUnitsconsumed(i.getUnitsconsumed());
+			  e.setTotalamount(i.getTotalamount());
+			  lr.saveAndFlush(e);
+		   
+		   return "The details of the  ID was updated";
+		  }
+		  else{
+		   return "The ID is not present in the database to update the value";
+		  }
+		 }
+	@Override
+	public void deleteDetails(int serviceid)
+	{
+		lr.deleteById(serviceid);
+   }
+	@Override
+	public List<Electricity> sortDescending(String field){	
+		return lr.findAll(Sort.by(Direction.DESC, field));
+	}
+	@Override
+	public List<Electricity> sortAscending(String field){	
+		return lr.findAll(Sort.by(Direction.ASC, field));
+	}
+	@Override
+	public List<Electricity> pagination(int pageNumber, int pageSize){
+		Page<Electricity> i = lr.findAll(PageRequest.of(pageNumber, pageSize));
+		return i.getContent();
+	}
+	@Override
+	public List<Electricity> paginationAndSorting(int pageNumber, int pageSize, String column_name){
+		Page<Electricity> i = lr.findAll(PageRequest.of(pageNumber, pageSize, Sort.by(column_name).descending()));
+		return i.getContent();
+	}
+
+}

@@ -1,0 +1,17 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import com.example.demo.model.Electricity;
+
+public interface ElectricityServiceInter {
+    Electricity createEmployee(Electricity electricity);
+
+    List<Electricity> getAllEmployees();
+
+    boolean deleteElectricity(Long id);
+
+    Electricity getElectricityById(Long id);
+
+    Electricity updateEmployee(Long id, Electricity employee);
+}

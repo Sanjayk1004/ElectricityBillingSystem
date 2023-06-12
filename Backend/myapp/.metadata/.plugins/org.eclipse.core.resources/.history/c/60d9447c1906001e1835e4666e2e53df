@@ -1,0 +1,50 @@
+package com.example.demo.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.dto.LoginDto;
+import com.example.demo.model.Electricity;
+import com.example.demo.model.User;
+import com.example.demo.payload.LoginMessage;
+import com.example.demo.services.UserService;
+
+@CrossOrigin
+@RequestMapping("/user")
+@RestController
+public class UserController {
+	@Autowired
+	UserService us;
+	@PostMapping("/login")
+	public LoginMessage Login(@RequestBody LoginDto user)
+    {
+	return us.loginUser(user);
+	}
+	@GetMapping("/getall")
+	public List<User> getall()
+	{
+		return us.getall();
+	}
+	@PutMapping("/update/{userId}")
+	public String UpdateUser(@RequestBody User i,@PathVariable("userId") int userId)
+	{
+		return us.updateDetails(i,userId);
+	}
+	@DeleteMapping("/delete/{userId}")
+	public void delete(@PathVariable("userId") int userId)
+	{
+		us.delete(userId);
+	}
+	
+}

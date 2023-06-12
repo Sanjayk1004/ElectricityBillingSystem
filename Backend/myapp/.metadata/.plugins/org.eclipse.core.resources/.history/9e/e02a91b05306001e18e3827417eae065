@@ -1,0 +1,59 @@
+package com.example.demo.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+@Entity
+@Table(name="ELECTRICITY")
+public class Electricity {
+	
+	public Electricity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public Electricity(int serviceid, LocalDateTime date, String unitsconsumed, String totalamount) {
+		super();
+		this.serviceid = serviceid;
+		this.date = date;
+		this.unitsconsumed = unitsconsumed;
+		this.totalamount = totalamount;
+	}
+
+	@Id
+	private int serviceid;
+	private LocalDateTime date;
+	private String unitsconsumed;
+	private String totalamount;
+	public int getServiceid() {
+		return serviceid;
+	}
+
+
+	public void setServiceid(int serviceid) {
+		this.serviceid = serviceid;
+	}
+
+
+	public LocalDateTime getDate() {
+		return date;
+	}
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+	public String getUnitsconsumed() {
+		return unitsconsumed;
+	}
+	public void setUnitsconsumed(String unitsconsumed) {
+		this.unitsconsumed = unitsconsumed;
+	}
+	public String getTotalamount() {
+		return totalamount;
+	}
+	public void setTotalamount(String totalamount) {
+		this.totalamount = totalamount;
+	}
+}

@@ -1,0 +1,67 @@
+package com.example.demo.controller;
+
+package com.dailycodebuffer.employee.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Electricity;
+import com.example.demo.service.ElectricityService;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+@RequestMapping("/api/v1/")
+public class ElectricityController {
+
+    private final ElectricityService electricityService;
+
+    public ElectricityController(ElectricityService electricityService) {
+        this.electricityService = electricityService;
+    }
+
+    @PostMapping("/employees")
+    public  createElectricity(@RequestBody Electricity electricity) {
+        return electricityService.createElectricity(electricity);
+    }
+
+    @GetMapping("/employees")
+    public List<Electricity> getAllElectricity() {
+        return  electricityService.getAllElectricity();
+    }
+
+    @DeleteMapping("/employees/{id}")
+    public ResponseEntity<Map<String,Boolean>> deleteElectricity(@PathVariable Long id) {
+        boolean deleted = false;
+        deleted = electricityService.deleteElectricity(id);
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("deleted", deleted);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<Electricity> getElectricityById(@PathVariable Long id) {
+        Electricity electricity = null;
+        electricity = electricityService.getElectricityById(id);
+        return ResponseEntity.ok(electricity);
+    }
+
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<Electricity> updateElectricity(@PathVariable Long id,
+                                                   @RequestBody Electricity electricity) {
+        electricity = electricityService.updateElectricity(id, electricity);
+        return ResponseEntity.ok(electricity);
+    }
+
+}

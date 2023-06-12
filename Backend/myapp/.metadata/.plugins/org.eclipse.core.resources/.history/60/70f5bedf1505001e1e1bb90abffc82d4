@@ -1,0 +1,45 @@
+package com.example.demo.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dto.LoginDto;
+import com.example.demo.model.User;
+import com.example.demo.payload.LoginMessage;
+import com.example.demo.repository.UserRepo;
+@Service
+public class UserService {
+	
+	@Autowired
+	     UserRepo lr;
+	   public LoginMessage loginUser(LoginDto data)
+	   {
+		   User u=lr.findByEmail(data.getEmail());
+				   if(u!=null)
+				   {
+					   Optional<User>details=lr.findOneByEmailAndPassword(data.getEmail(),data.getPassword());
+					   if(details.isPresent()) {
+						   return new LoginMessage("Password is correct",true);
+					   }
+					   else
+					   {
+						   return new LoginMessage("Password is Incorrect",false);
+					   }
+				   }
+				   else
+				   {
+					   return new LoginMessage("Email does not exist",false);
+				   }
+	   }
+	   public List<User> getall()
+	   {
+		   return lr.findAll();
+	   }
+	   public Optional<User>delete(int userId)
+	   {
+		   return lr.deleteById(userId);
+	   }
+}

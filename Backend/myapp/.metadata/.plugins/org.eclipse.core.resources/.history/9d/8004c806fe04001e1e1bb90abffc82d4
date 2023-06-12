@@ -1,0 +1,39 @@
+package com.example.demo.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.User;
+import com.example.demo.repository.UserRepo;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class UserService {
+	
+	@Autowired
+	     UserRepo lr;
+	     public User post3(User amodel4)
+	     {
+	      return lr.save(amodel4);
+	     }
+	     
+	     public List<User> get3()
+	     {
+	      return lr.findAll();
+	     }
+	     
+	     public User put3(User amodel5)
+	     {
+	    	 
+	      return lr.saveAndFlush(amodel5);
+	     }
+	     @Transactional
+	     public void delete3(String password)
+	     {
+	      lr.deleteByPassword(password);
+	     
+      }
+}

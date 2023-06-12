@@ -1,0 +1,16 @@
+package com.example.demo.service;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.repository.ElectricityRepo;
+
+@Service
+public class ElectricityService implements ElectricityServiceInter
+{
+    private ElectricityRepo electricityRepository;
+
+    public ElectricityService(ElectricityRepo electricityRepository) {
+        this.electricityRepository = electricityRepository;
+    }
+
+
+}

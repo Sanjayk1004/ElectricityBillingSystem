@@ -1,0 +1,38 @@
+package com.example.demo.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+@Entity
+public class Electricity {
+	@Id
+	private int billid;
+	public int getBillid() {
+		return billid;
+	}
+	public void setBillid(int billid) {
+		this.billid = billid;
+	}
+	public LocalDateTime getDate() {
+		return date;
+	}
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+	public String getUnitsconsumed() {
+		return unitsconsumed;
+	}
+	public void setUnitsconsumed(String unitsconsumed) {
+		this.unitsconsumed = unitsconsumed;
+	}
+	public String getTotalamount() {
+		return totalamount;
+	}
+	public void setTotalamount(String totalamount) {
+		this.totalamount = totalamount;
+	}
+	private LocalDateTime date;
+	private String unitsconsumed;
+	private String totalamount;
+}

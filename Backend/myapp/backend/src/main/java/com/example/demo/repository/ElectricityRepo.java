@@ -1,0 +1,9 @@
+ package com.example.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.demo.model.Electricity;
+
+public interface ElectricityRepo extends JpaRepository<Electricity, Integer>{
+
+}

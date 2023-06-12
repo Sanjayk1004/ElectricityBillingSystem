@@ -1,0 +1,34 @@
+package com.example.demo.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.User;
+import com.example.demo.repository.UserRepo;
+@Service
+public class UserService {
+	
+	@Autowired
+	     UserRepo lr;
+	   public LoginMessage loginuser(LoginDto data)
+	   {
+		   User u=lr.findByEmail(data.getEmail());
+				   if(u!=null)
+				   {
+					   Optional<User>details=lr.findOneByEmailAndPasssword(data.getEmail(),data.getPassword())
+					   if(details.isPresent()) {
+						   return new LoginMessage("Password is correct",true);
+					   }
+					   else
+					   {
+						   return new LoginMessage("Password is Incorrect",false);
+					   }
+				   }
+				   else
+				   {
+					   return new LoginMessage("Email does not exist",false);
+				   }
+	   }
+}
